@@ -1,6 +1,14 @@
-INPUT_VALUES = (1, 100, 400, 55, 33, 44, 11, 15, 16, 17, 987, 100, 34, 431, 77)
+INPUT_VALUES = range(100)
 
 
 def run_heavy_task(parts):
-    print(parts)
-    return [item * item for item in parts]
+    output_buf = []
+    for one_number in parts:
+        output_buf.append(one_number * one_number)
+    return output_buf
+
+
+def run_timeit():
+    import timeit
+
+    print(timeit.timeit("run_example()", setup="from __main__ import run_example"))

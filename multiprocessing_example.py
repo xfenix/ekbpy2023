@@ -2,7 +2,6 @@ from multiprocessing import Pool
 
 from _base import INPUT_VALUES, run_heavy_task
 
-
 PROC_COUNT = 3
 CHUNK_PARTS = len(INPUT_VALUES) // PROC_COUNT
 
@@ -20,5 +19,5 @@ def run_example():
     print(answers)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_example()

@@ -1,1 +1,4 @@
 *.build
+*.so
+*.pyi
+__pycache__
