@@ -1,1 +1,0 @@
-/Users/xfenix/.pyenv/versions/3.10.4/lib/python3.10/site-packages/nuitka/build/static_src/MainProgram.c
