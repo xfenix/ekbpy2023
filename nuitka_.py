@@ -7,7 +7,6 @@ def run_example():
 
     ```
     pip install nuitka
-    python -m nuitka _base.py --output-filename=raw_nuitka --module
     python -m nuitka _base.py --module
     ```
     """

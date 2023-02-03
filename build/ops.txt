@@ -1,0 +1,185 @@
+def run_example():
+    r0 :: list
+    output_buf, r1 :: object
+    r2 :: str
+    r3 :: object
+    r4 :: range
+    r5, r6 :: object
+    r7 :: int
+    r8, one_number, r9 :: object
+    r10 :: str
+    r11 :: object[2]
+    r12 :: object_ptr
+    r13 :: object
+    r14 :: bit
+    r15 :: object
+L0:
+    r0 = PyList_New(0)
+    if is_error(r0) goto L11 (error at run_example:5) else goto L1
+L1:
+    output_buf = r0
+    r1 = _base :: module
+    r2 = 'INPUT_VALUES'
+    r3 = CPyObject_GetAttr(r1, r2)
+    if is_error(r3) goto L12 (error at run_example:6) else goto L2
+L2:
+    r4 = cast(range, r3)
+    if is_error(r4) goto L12 (error at run_example:6) else goto L3
+L3:
+    r5 = PyObject_GetIter(r4)
+    dec_ref r4
+    if is_error(r5) goto L12 (error at run_example:6) else goto L4
+L4:
+    r6 = PyIter_Next(r5)
+    if is_error(r6) goto L13 else goto L5
+L5:
+    r7 = unbox(int, r6)
+    dec_ref r6
+    if is_error(r7) goto L14 (error at run_example:6) else goto L6
+L6:
+    r8 = box(int, r7)
+    one_number = r8
+    r9 = PyNumber_Multiply(one_number, one_number)
+    dec_ref one_number
+    if is_error(r9) goto L14 (error at run_example:7) else goto L7
+L7:
+    r10 = 'append'
+    r11 = [output_buf, r9]
+    r12 = load_address r11
+    r13 = PyObject_VectorcallMethod(r10, r12, 9223372036854775810, 0)
+    if is_error(r13) goto L15 (error at run_example:7) else goto L16
+L8:
+    dec_ref r9
+    goto L4
+L9:
+    r14 = CPy_NoErrOccured()
+    if not r14 goto L12 (error at run_example:6) else goto L10 :: bool
+L10:
+    return output_buf
+L11:
+    r15 = <error> :: object
+    return r15
+L12:
+    dec_ref output_buf
+    goto L11
+L13:
+    dec_ref r5
+    goto L9
+L14:
+    dec_ref output_buf
+    dec_ref r5
+    goto L11
+L15:
+    dec_ref output_buf
+    dec_ref r5
+    dec_ref r9
+    goto L11
+L16:
+    dec_ref r13
+    goto L8
+
+def __top_level__():
+    r0, r1 :: object
+    r2 :: bit
+    r3 :: str
+    r4 :: object
+    r5 :: dict
+    r6, r7 :: object
+    r8 :: bit
+    r9 :: str
+    r10 :: object
+    r11 :: dict
+    r12 :: str
+    r13 :: object
+    r14 :: str
+    r15 :: int32
+    r16 :: bit
+    r17 :: dict
+    r18 :: str
+    r19 :: object
+    r20, r21 :: str
+    r22 :: int32
+    r23 :: bit
+    r24 :: object
+    r25, r26, r27 :: bit
+    r28 :: object
+    r29 :: str
+    r30, r31 :: object
+    r32 :: None
+L0:
+    r0 = builtins :: module
+    r1 = load_address _Py_NoneStruct
+    r2 = r0 != r1
+    if r2 goto L3 else goto L1 :: bool
+L1:
+    r3 = 'builtins'
+    r4 = PyImport_Import(r3)
+    if is_error(r4) goto L17 (error at <module>:-1) else goto L2
+L2:
+    builtins = r4 :: module
+    dec_ref r4
+L3:
+    r5 = ekbpy.mypyc_.globals :: static
+    r6 = _base :: module
+    r7 = load_address _Py_NoneStruct
+    r8 = r6 != r7
+    if r8 goto L6 else goto L4 :: bool
+L4:
+    r9 = '_base'
+    r10 = PyImport_Import(r9)
+    if is_error(r10) goto L17 (error at <module>:1) else goto L5
+L5:
+    _base = r10 :: module
+    dec_ref r10
+L6:
+    r11 = PyImport_GetModuleDict()
+    r12 = '_base'
+    r13 = CPyDict_GetItem(r11, r12)
+    if is_error(r13) goto L17 (error at <module>:1) else goto L7
+L7:
+    r14 = '_base'
+    r15 = CPyDict_SetItem(r5, r14, r13)
+    dec_ref r13
+    r16 = r15 >= 0 :: signed
+    if not r16 goto L17 (error at <module>:1) else goto L8 :: bool
+L8:
+    r17 = ekbpy.mypyc_.globals :: static
+    r18 = '__name__'
+    r19 = CPyDict_GetItem(r17, r18)
+    if is_error(r19) goto L17 (error at <module>:11) else goto L9
+L9:
+    r20 = cast(str, r19)
+    if is_error(r20) goto L17 (error at <module>:11) else goto L10
+L10:
+    r21 = '__main__'
+    r22 = PyUnicode_Compare(r20, r21)
+    dec_ref r20
+    r23 = r22 == -1
+    if r23 goto L11 else goto L13 :: bool
+L11:
+    r24 = PyErr_Occurred()
+    r25 = r24 != 0
+    if r25 goto L12 else goto L13 :: bool
+L12:
+    r26 = CPy_KeepPropagating()
+    if not r26 goto L17 (error at <module>:11) else goto L13 :: bool
+L13:
+    r27 = r22 == 0
+    if r27 goto L14 else goto L16 :: bool
+L14:
+    r28 = _base :: module
+    r29 = 'run_timeit'
+    r30 = CPyObject_GetAttr(r28, r29)
+    if is_error(r30) goto L17 (error at <module>:12) else goto L15
+L15:
+    r31 = _PyObject_Vectorcall(r30, 0, 0, 0)
+    dec_ref r30
+    if is_error(r31) goto L17 (error at <module>:12) else goto L18
+L16:
+    return 1
+L17:
+    r32 = <error> :: None
+    return r32
+L18:
+    dec_ref r31
+    goto L16
