@@ -2,6 +2,8 @@ bld:
 	docker build . -t debug
 run:
 	docker run -it --rm debug bash
+bldrun:
+	docker build . -t debug && docker run -it --rm debug bash
 clean:
 	rm -rf *.so
 	rm -rf build/

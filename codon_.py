@@ -1,9 +1,11 @@
 import _base
+import codon
 
 
+@codon.jit
 def run_example():
     output_buf = []
-    for one_number in _base.INPUT_VALUES:
+    for one_number in range(100):
         output_buf.append(one_number * one_number)
     return output_buf
 
