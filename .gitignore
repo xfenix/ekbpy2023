@@ -2,3 +2,5 @@
 *.so
 *.pyi
 __pycache__
+*.c
+*.html

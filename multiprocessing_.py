@@ -1,9 +1,9 @@
 from multiprocessing import Pool
 
-from _base import INPUT_VALUES, run_heavy_task
+import _base
 
 PROC_COUNT = 3
-CHUNK_PARTS = len(INPUT_VALUES) // PROC_COUNT
+CHUNK_PARTS = len(_base.INPUT_VALUES) // PROC_COUNT
 
 
 def _chunks(l, n):
@@ -13,11 +13,10 @@ def _chunks(l, n):
 
 def run_example():
     answers = []
-    ready_chunks = _chunks(INPUT_VALUES, CHUNK_PARTS)
+    ready_chunks = _chunks(_base.INPUT_VALUES, CHUNK_PARTS)
     with Pool(PROC_COUNT) as pool:
-        answers.extend(pool.map(run_heavy_task, ready_chunks))
-    print(answers)
+        answers.extend(pool.map(_base.run_heavy_task, ready_chunks))
 
 
 if __name__ == "__main__":
-    run_example()
+    _base.run_timeit()
